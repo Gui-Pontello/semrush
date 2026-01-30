@@ -402,13 +402,10 @@ elif menu == "📄 Top Pages":
 # ⚙️ CONFIGURAÇÕES
 elif menu == "⚙️ Configurações":
     st.title("⚙️ Configurações")
-    st.caption("Configure sua API Key, domínio principal, lista de concorrentes e outras opções.")
+    st.caption("Configure o domínio principal, lista de concorrentes e outras opções.")
     st.markdown("---")
     
-    st.markdown("### 🔑 API")
-    new_api_key = st.text_input("API Key:", value=st.session_state.api_key, type="password")
-    
-    st.markdown("### 🌐 Domínios")
+    st.markdown("### 🌐 Domínio Principal")
     new_main_domain = st.text_input("Domínio Principal:", value=st.session_state.main_domain)
     
     st.markdown("### 🏢 Concorrentes")
@@ -424,14 +421,9 @@ elif menu == "⚙️ Configurações":
         index=0
     )
     
-    st.markdown("### 🔒 SSL")
-    new_disable_ssl = st.checkbox("Desabilitar verificação SSL (home office)", value=st.session_state.disable_ssl)
-    
     if st.button("💾 Salvar Configurações", key="btn_save"):
-        st.session_state.api_key = new_api_key
         st.session_state.main_domain = new_main_domain
         st.session_state.competitors = [c.strip() for c in competitors_text.split("\n") if c.strip()]
         st.session_state.database = new_database
-        st.session_state.disable_ssl = new_disable_ssl
         st.success("✅ Configurações salvas!")
         st.rerun()

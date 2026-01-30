@@ -255,6 +255,8 @@ st.sidebar.markdown("---")
 # 🔍 PESQUISA DE KEYWORDS
 if menu == "🔍 Pesquisa de Keywords":
     st.title("🔍 Pesquisa de Keywords")
+    st.caption("Pesquise termos de busca e descubra perguntas, palavras relacionadas e variações que os usuários fazem no Google.")
+    st.markdown("---")
     
     keyword = st.text_input("Digite a keyword:", value="furadeira")
     limit = st.slider("Limite de resultados:", 1, 20, 5)
@@ -262,6 +264,7 @@ if menu == "🔍 Pesquisa de Keywords":
     tab1, tab2, tab3 = st.tabs(["❓ Perguntas", "🔗 Relacionadas", "📝 Broad Match"])
     
     with tab1:
+        st.caption("❓ Retorna perguntas reais que usuários fazem sobre o termo (como, qual, porque, etc.)")
         if st.button("Buscar Perguntas", key="btn_questions"):
             with st.spinner("Buscando..."):
                 df = get_phrase_questions(keyword, limit)
@@ -271,6 +274,7 @@ if menu == "🔍 Pesquisa de Keywords":
                     st.warning("Nenhum resultado encontrado.")
     
     with tab2:
+        st.caption("🔗 Retorna sinônimos e termos semanticamente relacionados à keyword.")
         if st.button("Buscar Relacionadas", key="btn_related"):
             with st.spinner("Buscando..."):
                 df = get_phrase_related(keyword, limit)
@@ -280,6 +284,7 @@ if menu == "🔍 Pesquisa de Keywords":
                     st.warning("Nenhum resultado encontrado.")
     
     with tab3:
+        st.caption("📝 Retorna variações que CONTÊM o termo (long-tail keywords).")
         if st.button("Buscar Broad Match", key="btn_broad"):
             with st.spinner("Buscando..."):
                 df = get_phrase_fullsearch(keyword, limit)
@@ -291,6 +296,8 @@ if menu == "🔍 Pesquisa de Keywords":
 # 📊 BATCH + DIFICULDADE
 elif menu == "📊 Batch + Dificuldade":
     st.title("📊 Análise Batch de Keywords")
+    st.caption("Analise até 100 keywords de uma vez. Retorna volume de busca (Nq) e dificuldade de rankeamento (Kd).")
+    st.markdown("---")
     
     keywords_text = st.text_area(
         "Digite as keywords (uma por linha):",
@@ -311,6 +318,8 @@ elif menu == "📊 Batch + Dificuldade":
 # 🏢 ANÁLISE DE CONCORRENTES
 elif menu == "🏢 Análise de Concorrentes":
     st.title("🏢 Análise de Concorrentes")
+    st.caption("Analise as keywords orgânicas de qualquer domínio e descubra novos concorrentes.")
+    st.markdown("---")
     
     all_domains = [st.session_state.main_domain] + st.session_state.competitors
     domain = st.selectbox("Selecione o domínio:", all_domains)
@@ -319,6 +328,7 @@ elif menu == "🏢 Análise de Concorrentes":
     tab1, tab2 = st.tabs(["🔑 Keywords Orgânicas", "🎯 Descobrir Concorrentes"])
     
     with tab1:
+        st.caption("🔑 Retorna as keywords que trazem tráfego orgânico para o domínio selecionado.")
         if st.button("Buscar Keywords Orgânicas", key="btn_organic"):
             with st.spinner(f"Analisando {domain}..."):
                 df = get_domain_organic(domain, limit)
@@ -328,6 +338,7 @@ elif menu == "🏢 Análise de Concorrentes":
                     st.warning("Nenhum resultado.")
     
     with tab2:
+        st.caption("🎯 Descobre sites que competem pelas mesmas keywords (baseado em sobreposição de termos).")
         if st.button("Descobrir Concorrentes", key="btn_competitors"):
             with st.spinner(f"Buscando concorrentes de {domain}..."):
                 df = get_domain_competitors(domain, limit)
@@ -339,6 +350,8 @@ elif menu == "🏢 Análise de Concorrentes":
 # ⚖️ GAP ANALYSIS
 elif menu == "⚖️ Gap Analysis":
     st.title("⚖️ Gap Analysis")
+    st.caption("Compare seu domínio com concorrentes. Encontre keywords que você NÃO tem (missing), que TODOS têm (shared) ou que SÓ você tem (unique).")
+    st.markdown("---")
     
     st.markdown(f"**Domínio Principal:** {st.session_state.main_domain}")
     st.markdown(f"**Concorrentes:** {', '.join(st.session_state.competitors)}")
@@ -371,6 +384,8 @@ elif menu == "⚖️ Gap Analysis":
 # 📄 TOP PAGES
 elif menu == "📄 Top Pages":
     st.title("📄 Top Pages")
+    st.caption("Descubra as páginas/URLs que mais geram tráfego orgânico para um domínio. Útil para identificar produtos populares.")
+    st.markdown("---")
     
     all_domains = [st.session_state.main_domain] + st.session_state.competitors
     domain = st.selectbox("Selecione o domínio:", all_domains, key="select_pages")
@@ -387,6 +402,8 @@ elif menu == "📄 Top Pages":
 # ⚙️ CONFIGURAÇÕES
 elif menu == "⚙️ Configurações":
     st.title("⚙️ Configurações")
+    st.caption("Configure sua API Key, domínio principal, lista de concorrentes e outras opções.")
+    st.markdown("---")
     
     st.markdown("### 🔑 API")
     new_api_key = st.text_input("API Key:", value=st.session_state.api_key, type="password")
